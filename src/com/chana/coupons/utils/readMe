@@ -1,0 +1,56 @@
+Coupon System.
+Build with: mysql-connector-8.0.25 Java version
+ java-15
+ JDK-11.0.11
+ 
+
+Part A:
+the project contains 5 tables: @categories, @companies, @coupons, @customers_vs_coupons, @customers.
+all the tables defined as "cascade", to get automated update for all foreign keys. 
+
+the part "beans" contain 4 files for 4 tables, each variable for each column. 
+the table @customers_vs_coupons get info from 2 tables - coupons and customers.
+
+Part B:
+each "bean" contains some costructors, getters, setter, and Override the "toString()" method. 
+
+Part C:
+ConnectionPool - is a pool of connections, max connections is defined 10 by static. 
+eager Singelton. to control that the sources will be limits. 
+the class ConnectionPool contains a static closeResources() methods, to close the preperedStatement 
+and resultSet if used. 
+ 
+ Part D:
+ All the Dao classes. 
+ to connect the DB and set, update or get data.
+ the classes with "DbDao" in the name contains the methods, and the "Dao" classes are the interface of the "DbDao" classes.
+ the method throw exceptions from the DaoException class. (with uniqe string for each method.)
+ 
+ Part E+F:
+ The system support 3 types of clients: admin, company and customer. 
+ each one of them have specific facade class, that extends from the clientFacade class and contain login method and all the 
+ rest actions that this type of client can do. 
+ the client facade contain only Login(email, password) method
+ and all the rest facades used this method, and the rest action. 
+ 
+ Part G:
+ the class "CouponExpiredDailyJob" is a job that running non-synchronized, and make a check each 24 hours, 
+ to remove all the expired coupons from the system. 
+ the job running non-synchronized by start it with "start()". and stop it by "stop()."
+ 
+ Part H:
+ The main program, is for check the system action. 
+ Initializing each kind of user, and check all the methods.
+ 
+ Users:
+ Admin - Username: "admin@admin.com", password: "admin"
+ companies - 
+ User: "lala@la.com" password: "123" 
+ User:"gold@gold-line.com"   Password: "123456"
+ User: "zom@zom.com"  Password:"123456"
+ User: "gil@gil.com"  Password: "123456"
+ customers
+ User: "shir@gmail.com"  Password:"123456"
+ User: "tahel@gmail.com"  Password: "123456"
+ User: "lsil@gmail.com"  Password:"123456"
+ 
